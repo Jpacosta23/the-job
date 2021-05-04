@@ -2,7 +2,7 @@ const API_URL_BASE = process.env.REACT_APP_API_URL || "";
 
 const getAllJobs = async () => {
   try {
-    const RES = await fetch`${API_URL_BASE}/api/jobs`;
+    const RES = await fetch(`${API_URL_BASE}/api/jobs`);
     const data = await RES.json();
 
     return data;
@@ -13,7 +13,8 @@ const getAllJobs = async () => {
 
 const getJob = async (id) => {
   try {
-    const RES = await fetch`${API_URL_BASE}/api/jobs/${id}`;
+    const RES = await fetch(`${API_URL_BASE}/api/jobs/${id}`);
+
     const data = await RES.json();
 
     return data;

@@ -1,106 +1,148 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
+import { registerAccount, getEmails } from "../../../../services/auth.services";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faEnvelope,
+  faLock,
+  faUser,
+} from "@fortawesome/fontawesome-free-solid";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faLock, faUser } from '@fortawesome/fontawesome-free-solid';
+const FormRegister = () => {
+  const [form, setForm] = useState({});
+  const history = useHistory();
 
-class FormRegister extends Component {
-  constructor() {
-    super();
-
-    this.state = {};
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(evt) {
-    this.setState({
-      [evt.target.id]: evt.target.value,
-    });
-  }
-
-  handleSubmit(evt) {
+  const handleChange = (evt) => {
     evt.preventDefault();
-    this.props.handleSave(this.state);
-  }
+    const { name, value } = evt.target;
+    setForm({ ...form, [name]: value });
+  };
 
-  validateForm() {
-    const { name, email, password } = this.state;
+  const handleSubmit = async (evt) => {
+    evt.preventDefault();
 
-    return (email && email.length > 0) &&
-      (password && password.length > 0) &&
-      (name && name.length > 0);
-  }
+    const newUser = { ...form };
 
-  render() {
+    try {
+      const users = await getEmails();
+      let state = false;
+      users.map((user) => {
+        if (user.email === newUser.email) {
+          state = true;
+        }
+        return state;
+      });
+
+      if (state === true) {
+        alert("este email ya ha sido registrado");
+      } else {
+        const userRegistered = await registerAccount(newUser);
+
+        delete userRegistered.password;
+
+        localStorage.setItem("THE_JOB_APP", JSON.stringify(userRegistered));
+        history.push("/");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const validateForm = () => {
+    const { name, email, password } = form;
+
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div className="form-group">
-          <div className="input-group">
-            <span className="input-group-addon">
-              <FontAwesomeIcon icon={faUser} size="1x" />
-            </span>
-            <input
-              id="name"
-              type="text"
-              className="form-control"
-              placeholder="Your name"
-              required
-              onChange={this.handleChange}
-            />
-          </div>
-        </div>
-
-        <hr className="hr-xs" />
-
-        <div className="form-group">
-          <div className="input-group">
-            <span className="input-group-addon">
-              <FontAwesomeIcon icon={faEnvelope} size="1x" />
-            </span>
-            <input
-              id="email"
-              type="email"
-              className="form-control"
-              placeholder="Email"
-              required
-              onChange={this.handleChange}
-            />
-          </div>
-        </div>
-
-        <hr className="hr-xs" />
-
-        <div className="form-group">
-          <div className="input-group">
-            <span className="input-group-addon">
-              <FontAwesomeIcon icon={faLock} size="1x" />
-            </span>
-            <input
-              id="password"
-              type="password"
-              className="form-control"
-              placeholder="Password"
-              required
-              onChange={this.handleChange}
-            />
-          </div>
-        </div>
-
-        <button
-          className="btn btn-primary btn-block"
-          type="submit"
-          disabled={!this.validateForm()}
-        >
-          Login
-        </button>
-
-      </form>
+      email &&
+      email.length > 0 &&
+      password &&
+      password.length > 0 &&
+      name &&
+      name.length > 0
     );
-  }
-}
+  };
+  console.log("hola", form);
+  return (
+    <form onSubmit={handleSubmit}>
+      <div className="form-group">
+        <div className="input-group">
+          <span className="input-group-addon">
+            <FontAwesomeIcon icon={faUser} size="1x" />
+          </span>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            className="form-control"
+            placeholder="Your name"
+            required
+            onChange={handleChange}
+          />
+        </div>
+      </div>
 
+      <hr className="hr-xs" />
+
+      <div className="form-group">
+        <div className="input-group">
+          <span className="input-group-addon">
+            <FontAwesomeIcon icon={faEnvelope} size="1x" />
+          </span>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            className="form-control"
+            placeholder="Email"
+            required
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+
+      <hr className="hr-xs" />
+
+      <div className="form-group">
+        <div className="input-group">
+          <span className="input-group-addon">
+            <FontAwesomeIcon icon={faLock} size="1x" />
+          </span>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            className="form-control"
+            placeholder="Password"
+            required
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+
+      <hr className="hr-xs" />
+
+      <div className="form-group">
+        <div className="input-group">
+          <span className="input-group-addon">
+            <FontAwesomeIcon icon={"dice"} size="1x" />
+          </span>
+          <select id="role" name="role" onChange={handleChange}>
+            <option>candidate</option>
+            <option>admin</option>
+          </select>
+        </div>
+      </div>
+
+      <button
+        className="btn btn-primary btn-block"
+        type="submit"
+        disabled={!validateForm}
+      >
+        Login
+      </button>
+    </form>
+  );
+};
 
 FormRegister.propTypes = {
   handleSave: PropTypes.func.isRequired,

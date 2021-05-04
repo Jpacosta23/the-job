@@ -1,6 +1,6 @@
 const API_URL_BASE = process.env.REACT_APP_API_URL || "";
 
-const loginAccount = () => {};
+const loginAccount = async () => {};
 
 const registerAccount = async (user) => {
   try {
@@ -22,6 +22,17 @@ const registerAccount = async (user) => {
   }
 };
 
-const forgotPassword = () => {};
+const forgotPassword = async () => {};
 
-export { loginAccount, registerAccount, forgotPassword };
+const getEmails = async () => {
+  try {
+    const RES = await fetch(`${API_URL_BASE}/api/users`);
+    const data = await RES.json();
+
+    return data;
+  } catch (err) {
+    throw Error("something went wrong");
+  }
+};
+
+export { loginAccount, registerAccount, forgotPassword, getEmails };

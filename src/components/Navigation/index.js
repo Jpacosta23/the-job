@@ -8,6 +8,9 @@ const Navigation = () => {
   //     this.setState({ isAuth: true });
   //   }
   // };
+  const localUser = JSON.parse(localStorage.getItem("THE_JOB_APP"));
+  const user = localUser ? localUser : null;
+
   return (
     <nav className="navbar">
       <div className="container">
@@ -24,11 +27,18 @@ const Navigation = () => {
             </Link>
           </div>
         </div>
+
         <div className="pull-right user-login">
-          <Link to="/login" className="btn btn-sm btn-primary">
-            login
+          <Link
+            to={user === null ? "/login" : `/user/${user.name}`}
+            className="btn btn-sm btn-primary"
+          >
+            {user === null ? "Login" : user.name}
           </Link>
-          or <Link to="/register">register</Link>
+          or{" "}
+          <Link to={user === null ? "/register" : "/"}>
+            {user === null ? "Register" : "Logout"}
+          </Link>
         </div>
         <ul className="nav-menu">
           <li>
@@ -46,11 +56,6 @@ const Navigation = () => {
               <li>
                 <Link to="/jobs/apply/1020">Apply for job</Link>
               </li>
-              {/* {
-                  this.state.isAuth && (
-                    <li><Link to="/jobs/create">Post a job</Link></li>
-                  )
-                } */}
               <li>
                 <Link to="/jobs/create">Post a job</Link>
               </li>
@@ -64,22 +69,5 @@ const Navigation = () => {
     </nav>
   );
 };
-
-// class Navigation extends Component {
-//   constructor() {
-//     super();
-
-//     this.state = {};
-//   }
-
-//   componentWillMount() {
-//     this.verifyLogin();
-//   }
-
-//   }
-//   render() {
-
-//   }
-// }
 
 export default Navigation;
