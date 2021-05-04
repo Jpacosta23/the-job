@@ -1,4 +1,4 @@
-const API_URL_BASE = process.env.REACT_APP_API_URL || "";
+const API_URL_BASE = process.env.REACT_APP_API_BASE || "";
 
 const loginAccount = async () => {};
 

@@ -1,6 +1,7 @@
-const API_URL_BASE = process.env.REACT_APP_API_URL || "";
+const API_URL_BASE = process.env.REACT_APP_API_BASE || "";
 
 const getAllJobs = async () => {
+  console.log(API_URL_BASE, "hol");
   try {
     const RES = await fetch(`${API_URL_BASE}/api/jobs`);
     const data = await RES.json();

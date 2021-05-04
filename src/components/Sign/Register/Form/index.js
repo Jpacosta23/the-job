@@ -50,7 +50,7 @@ const FormRegister = () => {
   };
 
   const validateForm = () => {
-    const { name, email, password } = form;
+    const { name, email, password, role } = form;
 
     return (
       email &&
@@ -58,7 +58,8 @@ const FormRegister = () => {
       password &&
       password.length > 0 &&
       name &&
-      name.length > 0
+      name.length > 0 &&
+      role
     );
   };
   console.log("hola", form);
@@ -126,8 +127,14 @@ const FormRegister = () => {
           <span className="input-group-addon">
             <FontAwesomeIcon icon={"dice"} size="1x" />
           </span>
-          <select id="role" name="role" onChange={handleChange}>
-            <option>candidate</option>
+          <select
+            id="role"
+            name="role"
+            type="role"
+            required
+            onChange={handleChange}
+          >
+            <option selected>candidate</option>
             <option>admin</option>
           </select>
         </div>
