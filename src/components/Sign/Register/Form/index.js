@@ -35,7 +35,7 @@ const FormRegister = () => {
       });
 
       if (state === true) {
-        alert("este email ya ha sido registrado");
+        alert("este email ya ha sido registrado.");
       } else {
         const userRegistered = await registerAccount(newUser);
 
