@@ -72,12 +72,20 @@
         "Knowledge of user interface design."
       ],
       "ago": "34 min ago",
-      "className": "label-success"
+      "className": "label-success",
+      "candidates": [
+        {
+          "name": "juan pablo acosta",
+          "email": "pabloacosta_2@hotmail.com",
+          "role": "candidate",
+          "id": 1
+        }
+      ]
     },
     {
       "id": "1030",
       "title": "Software Engineer (Entry or Senior)",
-      "company": "Linkedin ",
+      "company": "Linkedin",
       "image": "/img/logo-linkedin.png",
       "about": "You will help Google build next-generation web applications like Gmail, Google Docs, Google Analytics, and the Google eBookstore and eBook readers. As a Front End Engineer at Google, you will specialize in building responsive and elegant web UIs with AJAX and similar technologies. You may design or work on frameworks for building scalable frontend applications. We are looking for engineers who are passionate about and have experience building leading-edge user experience, including dynamic consumer experiences",
       "summary": "The Special Programs Department II is seeking to hire a Computer Scientist to augment our software development team. Members of the software development team are expected to follow established software engineering principles to methodically deliver mission application software.",
@@ -113,7 +121,7 @@
     {
       "id": "1040",
       "title": "Full Stack Web Developer",
-      "company": "Envato ",
+      "company": "Envato",
       "image": "/img/logo-envato.png",
       "about": "You will help Google build next-generation web applications like Gmail, Google Docs, Google Analytics, and the Google eBookstore and eBook readers. As a Front End Engineer at Google, you will specialize in building responsive and elegant web UIs with AJAX and similar technologies. You may design or work on frameworks for building scalable frontend applications. We are looking for engineers who are passionate about and have experience building leading-edge user experience, including dynamic consumer experiences",
       "summary": "We're seeing a driven, curious, passionate full-stack web developer to help change how people learn creative skills and effortlessly create the images they imagine. You’ll be part of a new rapid prototyping and development team helping to apply lean startup development methodologies and modern web technologies to shape the future of Creative Cloud.",
@@ -219,5 +227,13 @@
       "className": "label-success"
     }
   ],
-  "users": []
+  "users": [
+    {
+      "name": "juan pablo acosta",
+      "email": "pabloacosta_2@hotmail.com",
+      "password": "12345",
+      "role": "candidate",
+      "id": 1
+    }
+  ]
 }

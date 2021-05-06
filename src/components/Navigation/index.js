@@ -36,9 +36,16 @@ const Navigation = () => {
             {user === null ? "Login" : user.name}
           </Link>
           or{" "}
-          <Link to={user === null ? "/register" : "/"}>
-            {user === null ? "Register" : "Logout"}
-          </Link>
+          {user === null ? (
+            <Link to="/register">Register</Link>
+          ) : (
+            <button
+              className="btn btn-sm btn-secondary"
+              onClick={() => localStorage.clear()}
+            >
+              Logout
+            </button>
+          )}
         </div>
         <ul className="nav-menu">
           <li>
