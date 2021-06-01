@@ -1,18 +1,19 @@
 /* eslint-disable */
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-// import jobs from "./../../assets/data/jobs.json";
 import JobItem from "./../../components/JobItem";
-import { getAllJobs } from "../../services/jobs.service";
+
+import { useAppState, useAppDispatch } from "../../store";
+import { getJobs } from "../../store/actions";
 
 const RecentJobs = () => {
-  const [jobs, setJobs] = useState([]);
+  const { jobs } = useAppState();
+  const dispatch = useAppDispatch();
 
   useEffect(async () => {
-    const data = await getAllJobs();
-    setJobs(data);
+    getJobs(dispatch);
   }, []);
-  console.log("hola", jobs);
+
   return (
     <section>
       <div className="container">

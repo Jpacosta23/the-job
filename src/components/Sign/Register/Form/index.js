@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
-import { registerAccount, getEmails } from "../../../../services/auth.services";
+import { getUsers } from "../../../../services/auth.services";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
@@ -9,7 +9,11 @@ import {
   faUser,
 } from "@fortawesome/fontawesome-free-solid";
 
+import { useAppDispatch } from "../../../../store";
+import { registerNewAccount } from "../../../../store/actions";
+
 const FormRegister = () => {
+  const dispatch = useAppDispatch();
   const [form, setForm] = useState({});
   const history = useHistory();
 
@@ -25,7 +29,7 @@ const FormRegister = () => {
     const newUser = { ...form };
 
     try {
-      const users = await getEmails();
+      const users = await getUsers();
       let state = false;
       users.map((user) => {
         if (user.email === newUser.email) {
@@ -35,13 +39,10 @@ const FormRegister = () => {
       });
 
       if (state === true) {
-        alert("este email ya ha sido registrado.");
+        alert("This email has been already registered");
       } else {
-        const userRegistered = await registerAccount(newUser);
-
-        delete userRegistered.password;
-
-        localStorage.setItem("THE_JOB_APP", JSON.stringify(userRegistered));
+        alert("Account created succesfully");
+        await registerNewAccount(newUser, dispatch);
         history.push("/");
       }
     } catch (error) {
@@ -62,7 +63,7 @@ const FormRegister = () => {
       role
     );
   };
-  console.log("hola", form);
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-group">

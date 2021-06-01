@@ -24,7 +24,7 @@ const registerAccount = async (user) => {
 
 const forgotPassword = async () => {};
 
-const getEmails = async () => {
+const getUsers = async () => {
   try {
     const RES = await fetch(`${API_URL_BASE}/api/users`);
     const data = await RES.json();
@@ -35,4 +35,4 @@ const getEmails = async () => {
   }
 };
 
-export { loginAccount, registerAccount, forgotPassword, getEmails };
+export { loginAccount, registerAccount, forgotPassword, getUsers };

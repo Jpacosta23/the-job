@@ -97,7 +97,7 @@ const JobDescription = () => {
               <Link className="btn btn-primary" to="/">
                 Apply with linkedin
               </Link>
-              <Link className="btn btn-success" to="/jobs/apply/1020">
+              <Link className="btn btn-success" to={`/jobs/apply/${id}`}>
                 Apply now
               </Link>
             </div>
