@@ -1,21 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
-import { getJob, updateJob } from "../../services/jobs.service";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Header from "./Header";
 import Form from "./Form";
 
-const ApplyJob = () => {
-  const [jobDetail, setJobDetail] = useState(null);
-  const { id } = useParams();
+import { useAppState, useAppDispatch } from "../../store";
+import { getJobDetail, createApplicantToJob } from "../../store/actions";
 
-  const getJobDetail = async () => {
-    const job = await getJob(id);
-    setJobDetail(job);
-  };
+const ApplyJob = () => {
+  const { jobDetail, isLoading } = useAppState();
+  const dispatch = useAppDispatch();
+  const { id } = useParams();
 
   const update = async (saveApplicant) => {
     try {
-      await updateJob(saveApplicant);
+      await createApplicantToJob(saveApplicant, dispatch);
       alert("Thank you for applying");
     } catch (error) {
       alert("Error");
@@ -34,14 +32,13 @@ const ApplyJob = () => {
   };
 
   useEffect(() => {
-    getJobDetail();
-    console.log(jobDetail);
+    getJobDetail(id, dispatch);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return (
     <div>
-      {!jobDetail ? null : <Header job={jobDetail} />}
+      {isLoading ? <p>Loading...</p> : <Header job={jobDetail} />}
       {jobDetail ? <Form handleSubmit={handleApply} /> : null}
     </div>
   );

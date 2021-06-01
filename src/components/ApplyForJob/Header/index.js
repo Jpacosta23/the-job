@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Header = ({ job }) => {
   return (
@@ -15,7 +15,10 @@ const Header = ({ job }) => {
         </p>
 
         <hr />
-        <a className="item-block item-block-flat" href="job-detail.html">
+        <Link
+          className="item-block item-block-flat"
+          to={`/jobs/detail/${job.id}`}
+        >
           <header>
             <img src={job.image} alt="Logo" />
             <div className="hgroup">
@@ -27,7 +30,7 @@ const Header = ({ job }) => {
               <time>{job.ago}</time>
             </div>
           </header>
-        </a>
+        </Link>
 
         <div className="button-group">
           <div className="action-buttons">

@@ -234,6 +234,41 @@
       "password": "12345",
       "role": "candidate",
       "id": 1
+    },
+    {
+      "name": "Juan Pablo Acosta Betancur",
+      "email": "pabloacosta.b17@gmail.com",
+      "password": "12345678",
+      "role": "candidate",
+      "id": 2
+    },
+    {
+      "name": "Juan Pablo Acosta Betancur",
+      "email": "p@lo.com",
+      "password": "123456",
+      "role": "candidate",
+      "id": 3
+    },
+    {
+      "name": "Juan",
+      "email": "j@lo.com",
+      "password": "123456",
+      "role": "candidate",
+      "id": 4
+    },
+    {
+      "name": "alfdfd",
+      "email": "al@lfo.com",
+      "password": "1234566",
+      "role": "candidate",
+      "id": 5
+    },
+    {
+      "name": "luc",
+      "email": "lu@st.com",
+      "password": "123454545",
+      "role": "candidate",
+      "id": 6
     }
   ]
 }
