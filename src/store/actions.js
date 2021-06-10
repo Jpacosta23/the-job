@@ -1,5 +1,5 @@
 import { getJob, updateJob, getAllJobs } from "../services/jobs.service";
-import { registerAccount } from "../services/auth.services";
+import { registerAccount, loginAccount } from "../services/auth.services";
 
 /**
  * Get a single Job
@@ -70,4 +70,29 @@ const registerNewAccount = async (user, dispatch) => {
   }
 };
 
-export { getJobDetail, createApplicantToJob, getJobs, registerNewAccount };
+const signIn = async (user, dispatch) => {
+  dispatch({ type: "IS_LOADING", payload: true });
+  try {
+    const data = await loginAccount(user);
+    dispatch({ type: "LOGIN", payload: data });
+    localStorage.setItem("THE_JOB_APP", JSON.stringify(data));
+  } catch (error) {
+    dispatch({ type: "SHOW_ERROR", payload: error });
+  } finally {
+    dispatch({ type: "IS_LOADING", payload: false });
+  }
+};
+
+const logOut = (dispatch) => {
+  localStorage.clear();
+  dispatch({ type: "LOGOUT" });
+};
+
+export {
+  getJobDetail,
+  createApplicantToJob,
+  getJobs,
+  registerNewAccount,
+  signIn,
+  logOut,
+};

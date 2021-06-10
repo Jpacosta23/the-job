@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppState } from "../../store";
+import { logOut } from "../../store/actions";
 
 const Navigation = () => {
   // const verifyLogin = () => {
@@ -8,9 +10,14 @@ const Navigation = () => {
   //     this.setState({ isAuth: true });
   //   }
   // };
-  const localUser = JSON.parse(localStorage.getItem("THE_JOB_APP"));
-  const user = localUser ? localUser : null;
 
+  const localUser = JSON.parse(localStorage.getItem("THE_JOB_APP"));
+  const user = localUser ? localUser.profile : null;
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    console.log(localUser);
+  });
   return (
     <nav className="navbar">
       <div className="container">
@@ -33,7 +40,7 @@ const Navigation = () => {
             to={user === null ? "/login" : `/user/${user.name}`}
             className="btn btn-sm btn-primary"
           >
-            {user === null ? "Login" : user.name}
+            {user === null ? "Login" : user.profile.name}
           </Link>
           or{" "}
           {user === null ? (
@@ -41,7 +48,9 @@ const Navigation = () => {
           ) : (
             <button
               className="btn btn-sm btn-secondary"
-              onClick={() => localStorage.clear()}
+              onClick={() => {
+                logOut(dispatch);
+              }}
             >
               Logout
             </button>

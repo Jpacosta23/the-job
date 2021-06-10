@@ -1,6 +1,22 @@
 const API_URL_BASE = process.env.REACT_APP_API_BASE || "";
 
-const loginAccount = async () => {};
+const loginAccount = async (user) => {
+  try {
+    const payload = {
+      method: "POST",
+      body: JSON.stringify(user),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    };
+    const response = await fetch(`${API_URL_BASE}/auth/local/login`, payload);
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    throw Error("OHHPS");
+  }
+};
 
 const registerAccount = async (user) => {
   try {
